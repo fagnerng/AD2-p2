@@ -1,4 +1,4 @@
-1 - Determinar quando uma tag/termos surgio
+1 - Determinar quando uma tag/termos surgiu
 
 2 - Determinar as tags mais usadas durante os anos
 
