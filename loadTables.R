@@ -17,9 +17,30 @@ songs$track_id <- NULL
 songs$title <- NULL
 songs$song_id <- NULL
 songs$release <- NULL
+install.packages("ggplot2")
 
 library("ggplot2")
 
-a <- ggplot(data = songs, aes(x = year, y = count(term)))
-a <- a + geom_line()
+jazz <- ggplot(data = year.term, aes(x = year.term, y = jazz))
+indie <- ggplot(data = year.term, aes(x = year.term, y = indie))
+hiphop <- ggplot(data = year.term, aes(x = year.term, y = rock))
+
 a
+
+test <- qplot(year.term$, data = year.term, geom = "density")
+test
+
+
+
+library("ggplot2")
+year_term <- read.csv("~/AD2-p2/Dados/year-term.csv")
+p <- ggplot() 
+p <- p +  geom_line(data = year_term, aes(x = year.term, y = rock, color = "Rock")) 
+p <- p + geom_line(data = year_term, aes(x = year.term, y = pop, color = "Pop")) 
+p <- p + geom_line(data = year_term, aes(x = year.term, y = indie, color = "Indie")) 
+p <- p + geom_line(data = year_term, aes(x = year.term, y = jazz, color = "Jazz")) 
+p <- p + geom_line(data = year_term, aes(x = year.term, y = hiphop, color = "Hip Hop")) 
+p <- p + xlab('Years') 
+p <- p + ylab('Count')
+p <- p + labs(color="TAGS")
+p
