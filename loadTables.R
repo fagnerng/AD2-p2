@@ -9,7 +9,7 @@ year_term <- read.csv("~/AD2-p2/Dados/year-term.csv")
 
 #windows
 year_term <- read.csv("C:/Users/fagnerng/git/AD2-p2/Dados/year-term.csv")
-artist_term <- read.csv("C:/Users/fagnerng/git/AD2/Problema 2/Dados/artist_term.csv")
+artist_term <- read.csv("C:/Users/fagnerng/git/AD2-p2/Dados/artist_term.csv")
 artists <- read.table("C:/Users/fagnerng/git/AD2-p2/Dados/artists.csv", header=TRUE, quote="\"")
 similarity <- read.csv("C:/Users/fagnerng/git/AD2-p2/Dados/similarity.csv")
 songs <- read.csv("C:/Users/fagnerng/git/AD2-p2/Dados/songs.csv")
@@ -20,6 +20,9 @@ subset_unique_artists <- read.csv("C:/Users/fagnerng/git/AD2-p2/Dados/subset_uni
 
 songs <- merge(songs, artist_term, "artist_id")
 songs <- subset(songs, songs$term == "rock" | songs$term == "indie" | songs$term == "pop" | songs$term == "jazz" | songs$term == "hip hop")
+songs <- subset(songs, songs$artist_familiarity > 0 )
+songs <- subset(songs, songs$artist_hotttnesss > 0 )
+songs <- subset(songs, songs$release == "Live" | songs$release == "Original Album Classics" | songs$release == "The Best Of" | songs$release == "The Very Best Of" | songs$release == "Gold" | songs$release == "Greatest Hits")
 summary(songs)
 songs$artist_mbid <- NULL
 songs$artist_name <- NULL
@@ -31,6 +34,8 @@ songs$track_id <- NULL
 songs$title <- NULL
 songs$song_id <- NULL
 songs$release <- NULL
+songs$year <- NULL
+
 #///////////////////////////////Questao 1//////////////////////////////////////////////
 # 1 - é possivel acompanhar o crescimento do generos ou da musica em si!?
 # R- em busca de tentar acompanha a evoluçao dos generos musicais( mais listados), 
@@ -60,13 +65,12 @@ p <- p + scale_x_continuous(breaks=c(1920,1930,1940,1950,1960,1970,1980,1990,200
 p <- p + scale_y_continuous(breaks=c(0,20,40,60,80,100,120,140,160,180,200,220,240))
 p
 
+p2 <- ggplot(songs, aes(factor(songs$release), songs$artist_familiarity))
+p2 <- p2 + geom_boxplot(aes(fill = factor(songs$release))) + geom_jitter()
+p2
 
-
-#/////////////////////////////////////////////////////////////////////////////////////////#
-artists <- read.table("C:/Users/fagnerng/git/AD2-p2/Dados/artists.csv", header=TRUE, quote="\"")
-similarity <- read.csv("C:/Users/fagnerng/git/AD2-p2/Dados/similarity.csv")
-songs <- read.csv("C:/Users/fagnerng/git/AD2-p2/Dados/songs.csv")
-subset_artist_location <- read.csv("C:/Users/fagnerng/git/AD2-p2/Dados/subset_artist_location.csv")
-subset_tracks_per_year <- read.csv("C:/Users/fagnerng/git/AD2-p2/Dados/subset_tracks_per_year.csv")
-subset_unique_artists <- read.csv("C:/Users/fagnerng/git/AD2-p2/Dados/subset_unique_artists.csv")
-
+p3 <- ggplot(songs, aes(factor(songs$release), songs$artist_hotttnesss))
+p3 <- p3 + geom_boxplot(aes(fill = factor(songs$release))) + geom_jitter()
+p3
+help(ggplot)
+summary(songs)
